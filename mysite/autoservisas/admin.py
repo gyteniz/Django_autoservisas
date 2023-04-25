@@ -6,7 +6,7 @@ from .models import (VehicleModel,
                      OrderLine)
 
 class VehicleAdmin(admin.ModelAdmin):
-    list_display = ('vehicle_model', 'plate', 'owner_name')
+    list_display = ('vehicle_model', 'plate', 'owner_name', 'vin')
 
 class OrderLineInline(admin.TabularInline):
     model = OrderLine
