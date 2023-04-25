@@ -30,8 +30,9 @@ class Vehicle(models.Model):
         return f"{self.vehicle_model} ({self.plate})"
 
 
+
 class Order(models.Model):
-    date = models.DateTimeField(verbose_name="Data", auto_now_add=True)
+    date = models.DateTimeField(verbose_name="Date", auto_now_add=True)
     vehicle = models.ForeignKey(to="Vehicle", verbose_name="Automobilis", on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
