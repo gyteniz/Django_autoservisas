@@ -15,7 +15,7 @@ class Vehicle(models.Model):
     plate = models.CharField(verbose_name="Valstybinis_Nr", max_length=6)
     vin = models.CharField(verbose_name="VIN_kodas", max_length=17)
     owner_name = models.CharField(verbose_name="Savininkas", max_length=50)
-    vehicle_model = models.ForeignKey(to="Automobilio_modelis",on_delete=models.SET_NULL, null=True)
+    vehicle_model = models.ForeignKey(to="VehicleModel",on_delete=models.SET_NULL, null=True)
 
 
 class Order(models.Model):
