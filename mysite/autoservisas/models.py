@@ -16,6 +16,10 @@ class VehicleModel(models.Model):
     def __str__(self):
         return f"{self.make} {self.model}"
 
+    class Meta:
+        verbose_name = "Vehicle Model"
+        verbose_name_plural = "Verhicle Models"
+
 class Vehicle(models.Model):
     plate = models.CharField(verbose_name="Valstybinis_Nr", max_length=6)
     vin = models.CharField(verbose_name="VIN_kodas", max_length=17)
