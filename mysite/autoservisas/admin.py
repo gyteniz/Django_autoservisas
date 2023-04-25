@@ -18,7 +18,8 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderLineInline]
 # ,'service', 'quantity'
 
-
+class OrderLineAdmin(admin.ModelAdmin):
+    list_display = ['order', 'service', 'quantity']
 
 
 
@@ -27,4 +28,4 @@ admin.site.register(VehicleModel)
 admin.site.register(Vehicle, VehicleAdmin)
 admin.site.register(Service)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderLine)
+admin.site.register(OrderLine, OrderLineAdmin)

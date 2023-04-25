@@ -38,6 +38,8 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.vehicle} ({self.date})"
 
+    def display_order(self):
+        return ', '.join(order.vehicle for order in self.order.all())
 
 class OrderLine(models.Model):
     order = models.ForeignKey(to="Order", on_delete=models.CASCADE)
