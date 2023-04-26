@@ -7,8 +7,8 @@ from .models import (VehicleModel,
 
 class VehicleAdmin(admin.ModelAdmin):
     list_display = ['vehicle_model', 'plate', 'owner_name', 'vin']
-    list_filter = ['vehicle_model', 'owner_name']
-    search_fields = ['plate', 'vin']
+    list_filter = ['owner_name', 'vehicle_model__make', 'vehicle_model__model']
+    search_fields = ['plate', 'vin', 'vehicle_model__make', 'vehicle_model__model']
 
 class OrderLineInline(admin.TabularInline):
     model = OrderLine
