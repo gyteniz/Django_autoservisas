@@ -21,8 +21,9 @@ class OrderLineInline(admin.TabularInline):
     extra = 0
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['vehicle', 'date']
+    search_fields = ['vehicle__plate', 'vehicle__vin', 'vehicle__vehicle_model__make']
+    list_filter = ['vehicle__vehicle_model__make']
     inlines = [OrderLineInline]
-# ,'service', 'quantity'
 
 class OrderLineAdmin(admin.ModelAdmin):
     list_display = ['order', 'service', 'quantity']
