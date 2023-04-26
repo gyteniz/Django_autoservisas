@@ -5,6 +5,10 @@ from .models import (VehicleModel,
                      Order,
                      OrderLine)
 
+class VehicleModelAdmin(admin.ModelAdmin):
+    list_display = ['make', 'model']
+    list_filter = ['make']
+
 class VehicleAdmin(admin.ModelAdmin):
     list_display = ['vehicle_model', 'plate', 'owner_name', 'vin']
     list_filter = ['owner_name', 'vehicle_model__make', 'vehicle_model__model']
@@ -27,7 +31,7 @@ class ServiceAdmin(admin.ModelAdmin):
     list_display = ['name', 'price']
 
 # Register your models here.
-admin.site.register(VehicleModel)
+admin.site.register(VehicleModel, VehicleModelAdmin)
 admin.site.register(Vehicle, VehicleAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Order, OrderAdmin)
