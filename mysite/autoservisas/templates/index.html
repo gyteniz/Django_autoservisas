@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>Dabartine statistika:</p>
+<ul>
+    <li><strong>Paslaugu kiekis: </strong> {{ num_services }}</li>
+    <li><strong>Automobiliai: </strong> {{ num_vehicles }}</li>
+    <li><strong>Automobiliu modeliai: </strong> {{ num_vehicle_models }}</li>
+    <li><strong>Uzsakymai: </strong> {{ num_orders }}</li>
+    <li><strong>Uzsakymo eilutes: </strong> {{ num_order_lines }}</li>
+</ul>
+{% endblock %}
