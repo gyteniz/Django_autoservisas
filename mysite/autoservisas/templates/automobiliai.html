@@ -6,7 +6,7 @@
 <h3>Automobilių sąrašas</h3>
 <ul>
     {% for automobilis in automobiliai %}
-    <li>{{automobilis.vehicle_model}} ({{automobilis.plate}})</li>
+    <li><a href="">{{automobilis.vehicle_model}} ({{automobilis.plate}})</a></li>
     {% endfor %}
 </ul>
 {% endblock %}

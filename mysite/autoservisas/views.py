@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Service, VehicleModel, Vehicle, Order, OrderLine
+from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
@@ -22,3 +23,10 @@ def automobiliai(request):
         'automobiliai': automobiliai
     }
     return render(request, 'automobiliai.html', context=context)
+
+def automobilis(request, automobilis_id):
+    automobilis = get_object_or_404(Vehicle, pk=automobilis_id)
+    context = {
+        'automobilis': automobilis
+    }
+    return render(request, 'automobilis.html', context=context)
