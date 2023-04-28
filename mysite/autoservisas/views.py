@@ -27,10 +27,7 @@ def automobiliai(request):
 
 def automobilis(request, automobilis_id):
     automobilis = get_object_or_404(Vehicle, pk=automobilis_id)
-    context = {
-        'automobilis': automobilis
-    }
-    return render(request, 'automobilis.html', context=context)
+    return render(request, 'automobilis.html', {'automobilis': automobilis})
 
 class OrderListView(generic.ListView):
     model = Order
