@@ -57,6 +57,13 @@ class Order(models.Model):
         blank=True,
         default='t',
     )
+
+    def total(self):
+        total = 0
+        lines = self.lines.all()
+        for line in lines:
+            total += line.suma()
+        return total
     def __str__(self):
         return f"{self.vehicle} ({self.date})"
 
@@ -66,6 +73,8 @@ class Order(models.Model):
 
     def display_order(self):
         return ', '.join(order.vehicle for order in self.order.all())
+
+
 
 class OrderLine(models.Model):
     order = models.ForeignKey(to="Order", on_delete=models.CASCADE, related_name='lines')
@@ -78,3 +87,8 @@ class OrderLine(models.Model):
     class Meta:
         verbose_name = 'Uzsakymo eilute'
         verbose_name_plural = 'Uzsakymo eilutes'
+
+    def suma(self):
+        return self.service.price * self.quantity
+
+

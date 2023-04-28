@@ -7,16 +7,11 @@
     <h3>{{ uzsakymas.vehicle }} {{ uzsakymas.date }}</h3>
     {% for line in uzsakymas.lines.all %}
 
-    <p>Paslauga: {{ line.service }} Kaina: {{ line.service.price }} Kiekis: {{ line.quantity }}</p>
+    <p>Paslauga: {{ line.service }} Kaina: {{ line.service.price }} Kiekis: {{ line.quantity }} Suma: {{line.suma}}</p>
     <p> </p>
-    <!--      <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">-->
-    <!--        {{ copy.get_status_display }}-->
-    <!--      </p>-->
-    <!--      {% if copy.status != 'a' %}-->
-    <!--        <p><strong>Bus grąžinta:</strong> {{ copy.due_back }}</p>-->
-    <!--      {% endif %}-->
-    <!--      <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>-->
+
     {% endfor %}
     <hr>
+    <p>Bendra suma: {{uzsakymas.total}}</p>
 </div>
 {% endblock %}
