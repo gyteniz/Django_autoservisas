@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Service, VehicleModel, Vehicle, Order, OrderLine
 from django.shortcuts import render, get_object_or_404
+from django.views import generic
 
 
 # Create your views here.
@@ -30,3 +31,13 @@ def automobilis(request, automobilis_id):
         'automobilis': automobilis
     }
     return render(request, 'automobilis.html', context=context)
+
+class OrderListView(generic.ListView):
+    model = Order
+    context_object_name = 'uzsakymai'
+    template_name = 'uzsakymai.html'
+
+class OrderDetailView(generic.DetailView):
+    model = Order
+    context_object_name = 'uzsakymas'
+    template_name = 'uzsakymas.html'

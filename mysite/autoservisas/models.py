@@ -68,7 +68,7 @@ class Order(models.Model):
         return ', '.join(order.vehicle for order in self.order.all())
 
 class OrderLine(models.Model):
-    order = models.ForeignKey(to="Order", on_delete=models.CASCADE)
+    order = models.ForeignKey(to="Order", on_delete=models.CASCADE, related_name='lines')
     service = models.ForeignKey(to="Service", verbose_name="Paslauga", on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(verbose_name="Kiekis")
 
