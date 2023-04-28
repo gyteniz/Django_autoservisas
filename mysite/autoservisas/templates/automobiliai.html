@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Automobiliai{% endblock %}
+
+{% block content %}
+<h3>Automobilių sąrašas</h3>
+<ul>
+    {% for automobilis in automobiliai %}
+    <li>{{automobilis.vehicle_model}} ({{automobilis.plate}})</li>
+    {% endfor %}
+</ul>
+{% endblock %}

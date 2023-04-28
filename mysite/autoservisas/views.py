@@ -15,3 +15,10 @@ def index(request):
         'num_orders': num_orders,
     }
     return render(request, 'index.html', context=context)
+
+def automobiliai(request):
+    automobiliai = Vehicle.objects.all()
+    context = {
+        'automobiliai': automobiliai
+    }
+    return render(request, 'automobiliai.html', context=context)
