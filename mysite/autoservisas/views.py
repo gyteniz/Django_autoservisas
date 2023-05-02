@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Service, VehicleModel, Vehicle, Order, OrderLine
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
@@ -19,7 +19,11 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 def automobiliai(request):
-    automobiliai = Vehicle.objects.all()
+
+    paginator = Paginator(Vehicle.objects.all(), 4)
+    page_number = request.GET.get('page')
+    paged_automobiliai = paginator.get_page(page_number)
+    automobiliai = paged_automobiliai
     context = {
         'automobiliai': automobiliai
     }
@@ -32,6 +36,7 @@ def automobilis(request, automobilis_id):
 class OrderListView(generic.ListView):
     model = Order
     context_object_name = 'uzsakymai'
+    paginate_by = 4
     template_name = 'uzsakymai.html'
 
 class OrderDetailView(generic.DetailView):

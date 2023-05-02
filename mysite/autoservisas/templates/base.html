@@ -43,10 +43,15 @@
                 <a class="nav-link active" href="{% url 'index' %}">Pradžia</a>
             </li>
             li class="nav-item">
-                <a class="nav-link active" href="{% url 'automobiliai' %}">Automobiliai</a>
+            <a class="nav-link active" href="{% url 'automobiliai' %}">Automobiliai</a>
             </li>
             li class="nav-item">
-                <a class="nav-link active" href="{% url 'uzsakymai' %}">Užsakymai</a>
+            <a class="nav-link active" href="{% url 'uzsakymai' %}">Užsakymai</a>
+            </li>
+            <li>
+                <form action="{% url 'search' %}" method="get" class="form-inline my-2 my-md-0">
+                    <input name="query" class="form-control" type="text" placeholder="Paieška">
+                </form>
             </li>
 
         </ul>
