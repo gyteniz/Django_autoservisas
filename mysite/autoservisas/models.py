@@ -30,6 +30,7 @@ class Vehicle(models.Model):
     vin = models.CharField(verbose_name="VIN_kodas", max_length=17)
     owner_name = models.CharField(verbose_name="Savininkas", max_length=50)
     vehicle_model = models.ForeignKey(to="VehicleModel",on_delete=models.SET_NULL, null=True)
+    photo =models.ImageField(verbose_name="Nuotrauka", upload_to='vehicles', blank=True, null=True)
 
     def __str__(self):
         return f"{self.vehicle_model} ({self.plate})"

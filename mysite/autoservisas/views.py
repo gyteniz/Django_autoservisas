@@ -21,7 +21,7 @@ def index(request):
 
 def automobiliai(request):
 
-    paginator = Paginator(Vehicle.objects.all(), 4)
+    paginator = Paginator(Vehicle.objects.all(), 3)
     page_number = request.GET.get('page')
     paged_automobiliai = paginator.get_page(page_number)
     automobiliai = paged_automobiliai

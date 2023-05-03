@@ -7,7 +7,7 @@
   <ul>
     {% for automobilis in automobiliai %}
       <li>
-        <a href="{% url 'automobilis' automobilis.id %}">{{ automobilis.owner_name }}</a> {{ automobilis.plate }} {{ automobilis.vin }}
+        <a href="{% url 'automobilis' automobilis.id %}">{{ automobilis.vehicle_model }} {{ automobilis.plate }}</a> {{ automobilis.owner_name }} {{ automobilis.vin }}
       </li>
     {% endfor %}
   </ul>
