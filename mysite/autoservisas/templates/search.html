@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+  <h1>Paieškos pagal "{{query}}" rezultatai:</h1>
+  </br>
+  {% if automobiliai %}
+  <ul>
+    {% for automobilis in automobiliai %}
+      <li>
+        <a href="{% url 'automobilis' automobilis.id %}">{{ automobilis.owner_name }}</a> {{ automobilis.plate }} {{ automobilis.vin }}
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>Oops. Nieko neradome :(</p>
+  {% endif %}
+
+  {% endblock %}
