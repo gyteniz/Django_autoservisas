@@ -6,7 +6,10 @@
 <h3>Mano užsakymų sąrašas</h3>
 <ul>
     {% for uzsakymas in my_orders %}
-    <li><a href="{% url 'uzsakymas' uzsakymas.id %}">{{uzsakymas.vehicle}}</a> {{uzsakymas.vehicle.owner_name}}, {{uzsakymas.date}}</li>
+    <li><a href="{% url 'uzsakymas' uzsakymas.id %}">{{uzsakymas.vehicle}}</a> {{uzsakymas.vehicle.owner_name}}, {{uzsakymas.date}}
+        {%if deadline_overdue %}<span class="text-danger">({{uzsakymas.deadline}})</span></li>
+        {%else %}<span class="text-success">({{uzsakymas.deadline}})</span></li>
+    {% endif %}
     {% endfor %}
 </ul>
 
