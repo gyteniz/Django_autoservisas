@@ -3,7 +3,8 @@ from .models import (VehicleModel,
                      Vehicle,
                      Service,
                      Order,
-                     OrderLine)
+                     OrderLine,
+                     OrderComment)
 
 class VehicleModelAdmin(admin.ModelAdmin):
     list_display = ['make', 'model']
@@ -19,18 +20,28 @@ class OrderLineInline(admin.TabularInline):
     # readonly_fields = ('id',)
     can_delete = False
     extra = 0
+
+class OrderCommentInLine(admin.TabularInline):
+    model = OrderComment
+    extra = 0
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['vehicle', 'date', 'client', 'deadline', 'deadline_overdue']
     search_fields = ['vehicle__plate', 'vehicle__vin', 'vehicle__vehicle_model__make']
     list_filter = ['vehicle__vehicle_model__make']
     list_editable = ['client', 'deadline']
-    inlines = [OrderLineInline]
+    inlines = [OrderLineInline, OrderCommentInLine]
 
 class OrderLineAdmin(admin.ModelAdmin):
     list_display = ['order', 'service', 'quantity']
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ['name', 'price']
+
+
+
+
+
 
 # Register your models here.
 admin.site.register(VehicleModel, VehicleModelAdmin)

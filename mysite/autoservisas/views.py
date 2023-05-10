@@ -1,12 +1,14 @@
 from django.http import HttpResponse
 from .models import Service, VehicleModel, Vehicle, Order, OrderLine
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import generic
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
+from django.views.generic.edit import FormMixin
+from .forms import OrderCommentForm
 
 # Create your views here.
 def index(request):
@@ -51,10 +53,32 @@ class OrderListView(generic.ListView):
 
 
 
-class OrderDetailView(generic.DetailView):
+class OrderDetailView(FormMixin, generic.DetailView):
     model = Order
     context_object_name = 'uzsakymas'
     template_name = 'uzsakymas.html'
+    form_class = OrderCommentForm
+
+    def get_success_url(self):
+        return reverse('uzsakymas', kwargs={'pk': self.object.id})
+
+        # standartinis post metodo perrašymas, naudojant FormMixin, galite kopijuoti tiesiai į savo projektą.
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+
+    # štai čia nurodome, kad knyga bus būtent ta, po kuria komentuojame, o vartotojas bus tas, kuris yra prisijungęs.
+    def form_valid(self, form):
+        form.instance.order = self.object
+        form.instance.user = self.request.user
+        form.save()
+        return super(OrderDetailView, self).form_valid(form)
 
 
 class MyOrderListView(generic.ListView):

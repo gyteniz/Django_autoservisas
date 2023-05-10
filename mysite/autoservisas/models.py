@@ -107,3 +107,13 @@ class OrderLine(models.Model):
         return self.service.price * self.quantity
 
 
+class OrderComment(models.Model):
+    order = models.ForeignKey(to='Order', on_delete=models.CASCADE, null=True, blank=True, related_name="comments")
+    user = models.ForeignKey(to=User, verbose_name="Autorius", on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(verbose_name="Data", auto_now_add=True)
+    content = models.TextField(verbose_name='Tekstas', max_length=5000)
+
+    class Meta:
+        verbose_name = "Komentaras"
+        verbose_name_plural = 'Komentarai'
+        ordering = ['-date_created']
