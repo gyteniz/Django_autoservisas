@@ -47,6 +47,7 @@ class Vehicle(models.Model):
 class Order(models.Model):
     date = models.DateTimeField(verbose_name="Date", auto_now_add=True)
     vehicle = models.ForeignKey(to="Vehicle", verbose_name="Automobilis", on_delete=models.SET_NULL, null=True, blank=True)
+    deadline = models.DateTimeField(verbose_name="Terminas", null=True, blank=True)
 
     LOAN_STATUS = (
         ('p', 'Patvirtinta'),
