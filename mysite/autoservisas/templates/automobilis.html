@@ -23,7 +23,8 @@
     <li><strong>Automobilio modelis:</strong> {{automobilis.vehicle_model}} </li>
     <li><strong>Automobilio valstybinis numeris:</strong> {{automobilis.plate}}</li>
     <li><strong>Automobilio VIN kodas:</strong> {{automobilis.vin}}</li>
-
+    <li><strong>Automobilio aprašymas:</strong><p>{{ automobilis.description | safe }}</p></li>
 </ul>
+
 </div>
 {% endblock %}
