@@ -1,6 +1,12 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+import datetime
+import pytz
+
+utc=pytz.UTC
+
 
 
 # Create your models here.
@@ -48,6 +54,9 @@ class Order(models.Model):
     vehicle = models.ForeignKey(to="Vehicle", verbose_name="Automobilis", on_delete=models.SET_NULL, null=True, blank=True)
     client = models.ForeignKey(to=User, verbose_name="Savininkas", on_delete=models.SET_NULL, null=True, blank=True)
     deadline = models.DateTimeField(verbose_name="Terminas", null=True, blank=True)
+
+    def deadline_overdue(self):
+        return self.deadline and datetime.datetime.today().replace(tzinfo=utc) > self.deadline.replace(tzinfo=utc)
 
     LOAN_STATUS = (
         ('p', 'Patvirtinta'),

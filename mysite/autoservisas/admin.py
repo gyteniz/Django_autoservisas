@@ -20,7 +20,7 @@ class OrderLineInline(admin.TabularInline):
     can_delete = False
     extra = 0
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['vehicle', 'date', 'client', 'deadline']
+    list_display = ['vehicle', 'date', 'client', 'deadline', 'deadline_overdue']
     search_fields = ['vehicle__plate', 'vehicle__vin', 'vehicle__vehicle_model__make']
     list_filter = ['vehicle__vehicle_model__make']
     list_editable = ['client', 'deadline']
