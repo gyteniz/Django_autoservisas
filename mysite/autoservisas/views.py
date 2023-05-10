@@ -53,3 +53,12 @@ class OrderDetailView(generic.DetailView):
     model = Order
     context_object_name = 'uzsakymas'
     template_name = 'uzsakymas.html'
+
+
+class MyOrderListView(generic.ListView):
+    model = Order
+    context_object_name = 'my_orders'
+    template_name = 'my_orders.html'
+
+    def get_queryset(self):
+        return Order.objects.filter(client=self.request.user)

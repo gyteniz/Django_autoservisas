@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block "title" %}Mano užsakymai{% endblock %}
+
+{% block "content" %}
+<h3>Mano užsakymų sąrašas</h3>
+<ul>
+    {% for uzsakymas in my_orders %}
+    <li><a href="{% url 'uzsakymas' uzsakymas.id %}">{{uzsakymas.vehicle}}</a> {{uzsakymas.date}}</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
