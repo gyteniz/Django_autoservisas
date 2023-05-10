@@ -4,7 +4,8 @@ from .models import (VehicleModel,
                      Service,
                      Order,
                      OrderLine,
-                     OrderComment)
+                     OrderComment,
+                     Profile)
 
 class VehicleModelAdmin(admin.ModelAdmin):
     list_display = ['make', 'model']
@@ -49,3 +50,4 @@ admin.site.register(Vehicle, VehicleAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderLine, OrderLineAdmin)
+admin.site.register(Profile)
