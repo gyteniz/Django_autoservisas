@@ -7,12 +7,20 @@
 
 <ul>
     {% for uzsakymas in uzsakymai %}
-    <li><a href="{% url 'uzsakymas' uzsakymas.id %}">{{uzsakymas.vehicle}}</a> {{uzsakymas.vehicle.owner_name}}, {{uzsakymas.date}}
+    <li><a href="{% url 'uzsakymas' uzsakymas.id %}">{{uzsakymas.vehicle}}</a> {{uzsakymas.vehicle.owner_name}},
+        {{uzsakymas.date}}
         {%if uzsakymas.deadline_overdue %} <span class="text-danger">({{uzsakymas.deadline}})</span>
         {%else %} <span class="text-success">({{uzsakymas.deadline}})</span></li>
+    <div class="row">
 
-    {% endif %}
-    {% endfor %}
+        <div class="col">
+            <p class="fw-bold">{{ uzsakymas.client.username}}</p>
+        </div>
+        <div class="col">
+            <img class="rounded-circle" src="{{uzsakymas.client.profile.photo.url}}">
+        </div>
+        {% endif %}
+        {% endfor %}
 </ul>
 
 <div class="pagination">
