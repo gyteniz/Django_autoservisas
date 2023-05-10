@@ -31,7 +31,6 @@ class Vehicle(models.Model):
     plate = models.CharField(verbose_name="Valstybinis_Nr", max_length=6)
     vin = models.CharField(verbose_name="VIN_kodas", max_length=17)
     owner_name = models.CharField(verbose_name="Savininkas", max_length=50)
-    owner = models.ForeignKey(to=User, verbose_name="Savininkas", on_delete=models.SET_NULL, null=True, blank=True)
     vehicle_model = models.ForeignKey(to="VehicleModel",on_delete=models.SET_NULL, null=True)
     photo =models.ImageField(verbose_name="Nuotrauka", upload_to='vehicles', blank=True, null=True)
 
@@ -47,6 +46,7 @@ class Vehicle(models.Model):
 class Order(models.Model):
     date = models.DateTimeField(verbose_name="Date", auto_now_add=True)
     vehicle = models.ForeignKey(to="Vehicle", verbose_name="Automobilis", on_delete=models.SET_NULL, null=True, blank=True)
+    client = models.ForeignKey(to=User, verbose_name="Savininkas", on_delete=models.SET_NULL, null=True, blank=True)
     deadline = models.DateTimeField(verbose_name="Terminas", null=True, blank=True)
 
     LOAN_STATUS = (
