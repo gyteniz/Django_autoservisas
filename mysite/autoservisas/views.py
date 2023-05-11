@@ -11,7 +11,7 @@ from django.views.generic.edit import FormMixin
 from .forms import OrderCommentForm
 from django.contrib.auth.decorators import login_required
 from .forms import OrderCommentForm, UserUpdateForm, ProfileUpdateForm
-from django.views.generic import (ListView, DetailView, CreateView, UpdateView)
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
@@ -39,11 +39,11 @@ def automobiliai(request):
     context = {
         'automobiliai': automobiliai
     }
-    return render(request, 'automobiliai.html', context=context)
+    return render(request, 'vehicles.html', context=context)
 
 def automobilis(request, automobilis_id):
     automobilis = get_object_or_404(Vehicle, pk=automobilis_id)
-    return render(request, 'automobilis.html', {'automobilis': automobilis})
+    return render(request, 'vehicle.html', {'automobilis': automobilis})
 
 def search(request):
     query = request.GET.get('query')
@@ -54,14 +54,14 @@ class OrderListView(generic.ListView):
     model = Order
     context_object_name = 'uzsakymai'
     paginate_by = 4
-    template_name = 'uzsakymai.html'
+    template_name = 'orders.html'
 
 
 
 class OrderDetailView(FormMixin, generic.DetailView):
     model = Order
     context_object_name = 'uzsakymas'
-    template_name = 'uzsakymas.html'
+    template_name = 'order.html'
     form_class = OrderCommentForm
 
     def get_success_url(self):
@@ -150,18 +150,18 @@ class OrderListView(generic.ListView):
     model = Order
     context_object_name = 'uzsakymai'
     paginate_by = 10
-    template_name = 'uzsakymai.html'
+    template_name = 'orders.html'
 
 
 
 class OrderDetailView(FormMixin, generic.DetailView):
     model = Order
     context_object_name = 'uzsakymas'
-    template_name = 'uzsakymas.html'
+    template_name = 'order.html'
     form_class = OrderCommentForm
 
     def get_success_url(self):
-        return reverse('uzsakymas', kwargs={'pk': self.object.id})
+        return reverse('order', kwargs={'pk': self.object.id})
 
         # standartinis post metodo perrašymas, naudojant FormMixin, galite kopijuoti tiesiai į savo projektą.
     def post(self, request, *args, **kwargs):
@@ -181,7 +181,7 @@ class OrderDetailView(FormMixin, generic.DetailView):
 class OrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
     fields = ['vehicle', 'deadline', 'status']
-    success_url = "/autoservisas/uzsakymai/"
+    success_url = "/autoservisas/orders/"
     template_name = 'order_form.html'
 
     def form_valid(self, form):
@@ -192,7 +192,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Order
     fields = ['vehicle', 'deadline', 'status']
-    # success_url = "/autoservisas/uzsakymai/"
+    # success_url = "/autoservisas/orders/"
     template_name = 'order_form.html'
 
     def get_success_url(self):
@@ -205,4 +205,11 @@ class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.get_object().client == self.request.user
 
+class OrderDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Order
+    context_object_name = 'order'
+    success_url = "autoservisas/orders/"
+    template_name = 'order_delete.html'
 
+    def test_func(self):
+        return self.get_object().client == self.request.user
