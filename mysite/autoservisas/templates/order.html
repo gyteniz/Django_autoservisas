@@ -46,8 +46,8 @@
 <div class="container">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         {%if uzsakymas.client == user%}
-        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'order_update' uzsakymas.id %}">Redaguoti</a>
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'order_delete' uzsakymas.id %}">Ištrinti</a>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'order_update' object.id %}">Redaguoti</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'order_delete' object.id %}">Ištrinti</a>
         <hr>
     </div>
 </div>

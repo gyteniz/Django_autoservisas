@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.views.generic.edit import FormMixin
 from .forms import OrderCommentForm
 from django.contrib.auth.decorators import login_required
-from .forms import OrderCommentForm, UserUpdateForm, ProfileUpdateForm
+from .forms import OrderCommentForm, UserUpdateForm, ProfileUpdateForm, OrderForm
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -180,9 +180,10 @@ class OrderDetailView(FormMixin, generic.DetailView):
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
-    fields = ['vehicle', 'deadline', 'status']
+    # fields = ['vehicle', 'deadline', 'status']
     success_url = "/autoservisas/orders/"
     template_name = 'order_form.html'
+    form_class = OrderForm
 
     def form_valid(self, form):
         form.instance.client = self.request.user
@@ -191,9 +192,10 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Order
-    fields = ['vehicle', 'deadline', 'status']
+    # fields = ['vehicle', 'deadline', 'status']
     # success_url = "/autoservisas/orders/"
     template_name = 'order_form.html'
+    form_class = OrderForm
 
     def get_success_url(self):
         return reverse('uzsakymas', kwargs={'pk': self.object.id})
@@ -207,8 +209,8 @@ class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class OrderDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Order
-    context_object_name = 'order'
-    success_url = "autoservisas/orders/"
+    context_object_name = 'uzsakymas'
+    success_url = "/autoservisas/orders/"
     template_name = 'order_delete.html'
 
     def test_func(self):
