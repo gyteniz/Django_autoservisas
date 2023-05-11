@@ -11,8 +11,9 @@ from django.views.generic.edit import FormMixin
 from .forms import OrderCommentForm
 from django.contrib.auth.decorators import login_required
 from .forms import OrderCommentForm, UserUpdateForm, ProfileUpdateForm
-from django.views.generic import (ListView, DetailView, CreateView)
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView)
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 
 # Create your views here.
 def index(request):
@@ -186,5 +187,22 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.client = self.request.user
         return super().form_valid(form)
+
+
+class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Order
+    fields = ['vehicle', 'deadline', 'status']
+    # success_url = "/autoservisas/uzsakymai/"
+    template_name = 'order_form.html'
+
+    def get_success_url(self):
+        return reverse('uzsakymas', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        form.instance.client = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.get_object().client == self.request.user
 
 

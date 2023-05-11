@@ -17,33 +17,41 @@
         <div class="col">
             <h5>{{ uzsakymas.client}}</h5>
         </div>
-    </div>
-    <table class="table table-striped">
-        <tr class="table-primary">
-            <th>Paslauga</th>
-            <th>Kaina</th>
-            <th>Kiekis</th>
-            <th>Suma</th>
-        </tr>
-        {% for line in uzsakymas.lines.all %}
-        <tr class="table-light">
-            <td>{{line.service}}</td>
-            <td>{{ line.service.price }}</td>
-            <td>{{ line.quantity }}</td>
-            <td>{{line.suma}}</td>
-        </tr>
 
-        {% endfor %}
-        <tr class="table-light">
-            <td><strong>Bendra suma:</strong></td>
-            <td></td>
-            <td></td>
-            <td>{{uzsakymas.total}}</td>
-        </tr>
-    </table>
+
+<div class="container">
+<table class="table table-striped">
+    <tr class="table-primary">
+        <th>Paslauga</th>
+        <th>Kaina</th>
+        <th>Kiekis</th>
+        <th>Suma</th>
+    </tr>
+    {% for line in uzsakymas.lines.all %}
+    <tr class="table-light">
+        <td>{{line.service}}</td>
+        <td>{{ line.service.price }}</td>
+        <td>{{ line.quantity }}</td>
+        <td>{{line.suma}}</td>
+    </tr>
+
+    {% endfor %}
+    <tr class="table-light">
+        <td><strong>Bendra suma:</strong></td>
+        <td></td>
+        <td></td>
+        <td>{{uzsakymas.total}}</td>
+    </tr>
+</table>
 
 </div>
-</br>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            {%if uzsakymas.client == user%}
+    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'order_update' uzsakymas.id %}">Redaguoti</a>
+            <hr>
+</div>
+{% endif %}
+<br>
 
 
 <h4>Komentarai:</h4>
