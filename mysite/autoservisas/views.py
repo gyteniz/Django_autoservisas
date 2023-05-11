@@ -140,3 +140,38 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, 'profile.html', context)
+
+
+
+class OrderListView(generic.ListView):
+    model = Order
+    context_object_name = 'uzsakymai'
+    paginate_by = 4
+    template_name = 'uzsakymai.html'
+
+
+
+class OrderDetailView(FormMixin, generic.DetailView):
+    model = Order
+    context_object_name = 'uzsakymas'
+    template_name = 'uzsakymas.html'
+    form_class = OrderCommentForm
+
+    def get_success_url(self):
+        return reverse('uzsakymas', kwargs={'pk': self.object.id})
+
+        # standartinis post metodo perrašymas, naudojant FormMixin, galite kopijuoti tiesiai į savo projektą.
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.instance.order = self.object
+        form.instance.user = self.request.user
+        form.save()
+        return super(OrderDetailView, self).form_valid(form)
+
