@@ -11,6 +11,8 @@ from django.views.generic.edit import FormMixin
 from .forms import OrderCommentForm
 from django.contrib.auth.decorators import login_required
 from .forms import OrderCommentForm, UserUpdateForm, ProfileUpdateForm
+from django.views.generic import (ListView, DetailView, CreateView)
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def index(request):
@@ -146,7 +148,7 @@ def profile(request):
 class OrderListView(generic.ListView):
     model = Order
     context_object_name = 'uzsakymai'
-    paginate_by = 4
+    paginate_by = 10
     template_name = 'uzsakymai.html'
 
 
@@ -174,4 +176,15 @@ class OrderDetailView(FormMixin, generic.DetailView):
         form.instance.user = self.request.user
         form.save()
         return super(OrderDetailView, self).form_valid(form)
+
+class OrderCreateView(LoginRequiredMixin, CreateView):
+    model = Order
+    fields = ['vehicle', 'deadline', 'status']
+    success_url = "/autoservisas/uzsakymai/"
+    template_name = 'order_form.html'
+
+    def form_valid(self, form):
+        form.instance.client = self.request.user
+        return super().form_valid(form)
+
 

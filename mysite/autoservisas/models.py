@@ -86,6 +86,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Uzsakymas'
         verbose_name_plural = 'Uzsakymai'
+        ordering = ['-id']
 
     def display_order(self):
         return ', '.join(order.vehicle for order in self.order.all())

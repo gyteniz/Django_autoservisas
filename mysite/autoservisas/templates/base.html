@@ -40,13 +40,13 @@
     <div class="container-fluid">
         <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item col-2">
+            <li class="nav-item col">
                 <a class="nav-link active" href="{% url 'index' %}">Pradžia</a>
             </li>
-            <li class="nav-item col-2">
+            <li class="nav-item col">
                 <a class="nav-link active" href="{% url 'automobiliai' %}">Automobiliai</a>
             </li>
-            <li class="nav-item active col-2">
+            <li class="nav-item active col">
                 <a class="nav-link active" href="{% url 'uzsakymai' %}">Užsakymai</a>
             </li>
 
@@ -65,10 +65,11 @@
                 </svg>
                 {{ user.get_username }}</a></li>
             <li class="nav-item col-2"><a class="nav-link" href="{% url 'my_orders'%}">Mano užsakymai</a></li>
-            <li class="nav-item col-2"><a class="nav-link" href="{% url 'logout'%}?next=/autoservisas">Atsijungti</a>
+            <li class="nav-item col-2"><a class="nav-link" href="{% url 'order_new'%}">Naujas užsakymas</a></li>
+            <li class="nav-item col"><a class="nav-link" href="{% url 'logout'%}?next=/autoservisas">Atsijungti</a>
             </li>
             {% else %}
-            <li class="nav-item col-2"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Prisijungti</a>
+            <li class="nav-item col"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Prisijungti</a>
             </li>
             {% if not user.is_authenticated %}
             <li class="nav-item"><a class="nav-link" href="{% url 'register'%}">Registruotis</a></li>
