@@ -21,13 +21,16 @@
     <hr>
 </div>
 
-<div class="container">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        {%if order.client == user%}
-        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'order_update' order.id %}">Redaguoti</a>
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'order_delete' order.id %}">Ištrinti</a>
-        <hr>
-        {% endif %}
+<div class="container"">
+    <div class="row">
+        <div class="col-9 d-grid gap-2 d-md-flex justify-content-md-start"><h5>Užsakymą: {{ order.vehicle }} {{ order.date }} </h5></div>
+        <div class="col-3 d-grid gap-2 d-md-flex justify-content-md-end">
+            {%if order.client == user%}
+            <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'order_update' order.id %}">Redaguoti</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'order_delete' order.id %}">Ištrinti</a>
+            <hr>
+            {% endif %}
+        </div>
     </div>
 </div>
 
@@ -47,8 +50,9 @@
             <td>{{ line.quantity }}</td>
             <td>{{line.suma}}</td>
              {% if order.client == user %}
-            <td>
+            <td class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'updateline' order.id line.id %}">Redaguoti</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'deleteline' order.id line.id %}">Ištrinti</a>
             </td>
         {% endif %}
         </tr>
