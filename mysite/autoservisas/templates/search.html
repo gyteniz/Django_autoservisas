@@ -3,11 +3,11 @@
 {% block "content" %}
   <h1>Paieškos pagal "{{query}}" rezultatai:</h1>
   </br>
-  {% if automobiliai %}
+  {% if vehicles %}
   <ul>
-    {% for automobilis in automobiliai %}
+    {% for vehicle in vehicles %}
       <li>
-        <a href="{% url 'automobilis' automobilis.id %}">{{ automobilis.vehicle_model }} {{ automobilis.plate }}</a> {{ automobilis.owner_name }} {{ automobilis.vin }}
+        <a href="{% url 'vehicle' vehicle.id %}">{{ vehicle.vehicle_model }} {{ vehicle.plate }}</a> {{ vehicle.owner_name }} {{ vehicle.vin }}
       </li>
     {% endfor %}
   </ul>

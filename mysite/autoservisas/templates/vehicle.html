@@ -5,9 +5,9 @@
 {% block "content" %}
 
 {% load static %}
-{% if automobilis.photo %}
+{% if vehicle.photo %}
 <div class="card mb-4 shadow-sm" style="max-width: 15rem;">
-    <img src="{{ automobilis.photo.url }}" class="img" alt="...">
+    <img src="{{ vehicle.photo.url }}" class="img" alt="...">
     {% else %}
     <img src="{% static 'img/no-image.png' %}" class="img">
     {% endif %}
@@ -16,15 +16,15 @@
 
 
 <div class="container">
-<h3>{{ automobilis.vehicle_model }} {{ automobilis.plate }}</h3>
+<h3>{{ vehicle.vehicle_model }} {{ vehicle.plate }}</h3>
 <ul>
 
-    <li><strong>Automobilio savininkas:</strong> {{automobilis.owner_name}}</li>
-    <li><strong>Automobilio modelis:</strong> {{automobilis.vehicle_model}} </li>
-    <li><strong>Automobilio valstybinis numeris:</strong> {{automobilis.plate}}</li>
-    <li><strong>Automobilio VIN kodas:</strong> {{automobilis.vin}}</li>
-    {%if automobilis.description %}
-    <li><strong>Automobilio aprašymas:</strong><p>{{ automobilis.description | safe }}</p></li>
+    <li><strong>Automobilio savininkas:</strong> {{vehicle.owner_name}}</li>
+    <li><strong>Automobilio modelis:</strong> {{vehicle.vehicle_model}} </li>
+    <li><strong>Automobilio valstybinis numeris:</strong> {{vehicle.plate}}</li>
+    <li><strong>Automobilio VIN kodas:</strong> {{vehicle.vin}}</li>
+    {%if vehicle.description %}
+    <li><strong>Automobilio aprašymas:</strong><p>{{ vehicle.description | safe }}</p></li>
     {% endif %}
 </ul>
 
