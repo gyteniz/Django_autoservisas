@@ -38,6 +38,7 @@
             <th>Kaina</th>
             <th>Kiekis</th>
             <th>Suma</th>
+            <th></th>
         </tr>
         {% for line in order.lines.all %}
         <tr class="table-light">
@@ -45,6 +46,11 @@
             <td>{{ line.service.price }}</td>
             <td>{{ line.quantity }}</td>
             <td>{{line.suma}}</td>
+             {% if order.client == user %}
+            <td>
+                <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'updateline' order.id line.id %}">Redaguoti</a>
+            </td>
+        {% endif %}
         </tr>
         {% endfor %}
         <tr class="table-light">
@@ -52,6 +58,7 @@
             <td></td>
             <td></td>
             <td>{{order.total}}</td>
+            <td></td>
         </tr>
     </table>
 </div>
@@ -59,7 +66,7 @@
 
 {% if order.client == user %}
 <div class="container">
-    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'newline' order.id %}">Pridėti eilutę</a>
+    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'newline' order.id %}">Pridėti eilutę</a>
 </div>
 {% endif %}
 <br>
