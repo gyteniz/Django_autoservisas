@@ -6,19 +6,12 @@
 <h3>Užsakymų sąrašas</h3>
 
 <ul>
-    {% for uzsakymas in uzsakymai %}
-    <li><a href="{% url 'uzsakymas' uzsakymas.id %}">{{uzsakymas.vehicle}}</a> {{uzsakymas.vehicle.owner_name}},
-        {{uzsakymas.date}}
-        {%if uzsakymas.deadline_overdue %} <span class="text-danger">({{uzsakymas.deadline}})</span>
-        {%else %} <span class="text-success">({{uzsakymas.deadline}})</span> {{ uzsakymas.client.username}}</li>
+    {% for order in orders %}
+    <li><a href="{% url 'order' order.id %}">{{order.vehicle}}</a> {{order.vehicle.owner_name}},
+        {{order.date}}
+        {%if order.deadline_overdue %} <span class="text-danger">({{order.deadline}})</span>
+        {%else %} <span class="text-success">({{order.deadline}})</span> {{ order.client.username}}</li>
 
-
-<!--        <div class="col">-->
-<!--            <p class="fw-bold">{{ uzsakymas.client.username}}</p>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <img class="rounded-circle" src="{{uzsakymas.client.profile.photo.url}}">-->
-<!--        </div>-->
         {% endif %}
          <hr>
         {% endfor %}

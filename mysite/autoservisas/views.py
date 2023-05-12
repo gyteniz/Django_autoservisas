@@ -8,7 +8,6 @@ from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.views.generic.edit import FormMixin
-from .forms import OrderCommentForm
 from django.contrib.auth.decorators import login_required
 from .forms import OrderCommentForm, UserUpdateForm, ProfileUpdateForm, OrderForm
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
@@ -148,7 +147,7 @@ def profile(request):
 
 class OrderListView(generic.ListView):
     model = Order
-    context_object_name = 'uzsakymai'
+    context_object_name = 'orders'
     paginate_by = 10
     template_name = 'orders.html'
 
@@ -156,7 +155,7 @@ class OrderListView(generic.ListView):
 
 class OrderDetailView(FormMixin, generic.DetailView):
     model = Order
-    context_object_name = 'uzsakymas'
+    context_object_name = 'order'
     template_name = 'order.html'
     form_class = OrderCommentForm
 
@@ -190,7 +189,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Order
     # fields = ['vehicle', 'deadline', 'status']
     # success_url = "/autoservisas/orders/"
@@ -198,7 +197,7 @@ class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = OrderForm
 
     def get_success_url(self):
-        return reverse('uzsakymas', kwargs={'pk': self.object.id})
+        return reverse('order', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
         form.instance.client = self.request.user
@@ -209,9 +208,27 @@ class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class OrderDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Order
-    context_object_name = 'uzsakymas'
+    context_object_name = 'order'
     success_url = "/autoservisas/orders/"
     template_name = 'order_delete.html'
 
     def test_func(self):
         return self.get_object().client == self.request.user
+
+class OrderLineCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
+    model = OrderLine
+    fields = ['service', 'quantity']
+    template_name = 'orderline_form.html'
+
+    # success_url = "/autoservice/orders/"
+
+    def test_func(self):
+        order = Order.objects.get(pk=self.kwargs['pk'])
+        return order.client == self.request.user
+
+    def get_success_url(self):
+        return reverse('order', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        form.instance.order = Order.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)

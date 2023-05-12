@@ -6,19 +6,31 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h5>{{ uzsakymas.vehicle }} </h5>
+            <h5>{{ order.vehicle }} </h5>
         </div>
         <div class="col">
-            <h5>{{ uzsakymas.date }}</h5>
+            <h5>{{ order.date }}</h5>
         </div>
         <div class="col">
-            <h5>{{ uzsakymas.vehicle.owner_name }}</h5>
+            <h5>{{ order.vehicle.owner_name }}</h5>
         </div>
         <div class="col">
-            <h5>{{ uzsakymas.client}}</h5>
+            <h5>{{ order.client}}</h5>
         </div>
     </div>
+    <hr>
 </div>
+
+<div class="container">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        {%if order.client == user%}
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'order_update' order.id %}">Redaguoti</a>
+        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'order_delete' order.id %}">Ištrinti</a>
+        <hr>
+        {% endif %}
+    </div>
+</div>
+
 <div class="container">
     <table class="table table-striped">
         <tr class="table-primary">
@@ -27,7 +39,7 @@
             <th>Kiekis</th>
             <th>Suma</th>
         </tr>
-        {% for line in uzsakymas.lines.all %}
+        {% for line in order.lines.all %}
         <tr class="table-light">
             <td>{{line.service}}</td>
             <td>{{ line.service.price }}</td>
@@ -39,19 +51,18 @@
             <td><strong>Bendra suma:</strong></td>
             <td></td>
             <td></td>
-            <td>{{uzsakymas.total}}</td>
+            <td>{{order.total}}</td>
         </tr>
     </table>
 </div>
+
+
+{% if order.client == user %}
 <div class="container">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        {%if uzsakymas.client == user%}
-        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'order_update' object.id %}">Redaguoti</a>
-        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'order_delete' object.id %}">Ištrinti</a>
-        <hr>
-    </div>
+    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'newline' order.id %}">Pridėti eilutę</a>
 </div>
 {% endif %}
+<br>
 
 <div class="container">
     {% if user.is_authenticated %}
@@ -64,8 +75,8 @@
         </form>
     </div>
     {% endif %}
-    {% if uzsakymas.comments.all %}
-    {% for comment in uzsakymas.comments.all %}
+    {% if order.comments.all %}
+    {% for comment in order.comments.all %}
     <hr>
     <strong>{{ comment.user }}</strong>, <em>{{ comment.date_created}}</em>
     <p>{{ comment.content }}</p>
