@@ -11,7 +11,17 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from .my_settings import SECRET_KEY,EMAIL_BACKEND, EMAIL_HOST, EMAIL_POST, EMAIL_USE_TLS, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+from .my_settings import (SECRET_KEY,
+                          EMAIL_BACKEND,
+                          EMAIL_HOST,
+                          EMAIL_POST,
+                          EMAIL_USE_TLS,
+                          EMAIL_HOST_USER,
+                          EMAIL_HOST_PASSWORD,
+                          DEBUG,
+                          ALLOWED_HOSTS,
+                          STATICFILES_DIRS,
+                          STATIC_ROOT)
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,9 +42,9 @@ EMAIL_HOST_USER = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ALLOWED_HOSTS
 
 
 # Application definition
@@ -128,6 +138,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+STATICFILES_DIRS = STATICFILES_DIRS
+STATIC_ROOT = STATIC_ROOT
 STATIC_URL = '/static/'
 
 # Default primary key field type
